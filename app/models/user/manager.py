@@ -38,11 +38,11 @@ class UserManager(object):
 
     def create(self, user: User) -> User:
         self.users.document(user.user_id).create(UserSchema().dump(user))
-        return UserSchema().load(self.get(user.user_id))
+        return self.get(user.user_id)
 
     def update(self, user_id: str, user: User) -> User:
         self.users.document(user_id).update(UserSchema().dump(user))
-        return UserSchema().load(self.get(user_id))
+        return self.get(user_id)
 
     def delete(self, user_id: str):
         self.users.document(user_id).delete()
