@@ -42,15 +42,12 @@ class Profile(Resource):
     @login_required
     @marshal_with(google_user)
     def get(self):
-        print(current_user.user_id)
-        return jsonify(
-            {
-                "user_id": current_user.user_id,
-                "name": current_user.name,
-                "email": current_user.email,
-                "profile_pic": current_user.profile_pic,
-            }
-        )
+        return {
+            "user_id": current_user.user_id,
+            "name": current_user.name,
+            "email": current_user.email,
+            "profile_pic": current_user.profile_pic,
+        }
 
     @marshal_with(google_user)
     @csrf_protection
