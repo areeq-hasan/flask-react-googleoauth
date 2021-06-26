@@ -34,6 +34,8 @@ class UserManager(object):
         )
 
     def get(self, user_id: str) -> User:
+        print(user_id)
+        print(self.users.document(user_id).get().to_dict())
         return UserSchema().load(self.users.document(user_id).get().to_dict())
 
     def create(self, user: User) -> User:
