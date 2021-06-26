@@ -6,7 +6,7 @@ import { HashRouter, Switch, Route, Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 // Style Imports
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import './App.css';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -23,12 +23,6 @@ import { Profile } from './components/Profile';
 
 axios.defaults.headers.common['X-Requested-With'] = 'XmlHttpRequest';
 
-const useStyles = makeStyles(theme => ({
-  title: {
-    flexGrow: 1,
-  }
-}));
-
 const ProtectedRoute = ({ children, authRequired, ...rest }) => {
   return (
     <Route {...rest}>
@@ -37,8 +31,23 @@ const ProtectedRoute = ({ children, authRequired, ...rest }) => {
   );
 };
 
+const theme = createMuiTheme({
+  palette: {
+    // type: 'dark',
+    primary: {
+      main: '#1976d2',
+    },
+  }
+});
+
+const useStyles = makeStyles(theme => ({
+  title: {
+    flexGrow: 1,
+  }
+}));
+
 function App(props) {
-  const classes = useStyles();
+  const classes = useStyles(theme);
 
   const [authRequired, setAuthRequired] = useState(false);
   const [profilePicture, setProfilePicture] = useState(null);
@@ -73,19 +82,19 @@ function App(props) {
   }, [authRequired]);
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
 
-      <AppBar postion="relative">
+      <AppBar position="relative">
         <Toolbar>
-          <Typography color="inherit" variant="h6" className={classes.title}>
-            Flask-React Google OAuth2.0 Template
-          </Typography>
           <ProfileButton
             handleLogout={handleLogout}
             authenticated={!authRequired}
             profilePicture={profilePicture}
           />
+          <Typography variant="h6" color="inherit" noWrap>
+            Google OAuth2.0
+          </Typography>
         </Toolbar>
       </AppBar>
 
@@ -113,7 +122,7 @@ function App(props) {
         </Alert>
       </Snackbar>
 
-    </>
+    </ThemeProvider>
   );
 }
 

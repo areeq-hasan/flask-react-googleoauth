@@ -19,6 +19,9 @@ const useStyles = makeStyles(theme => ({
         textAlign: "center",
         marginTop: 40,
     },
+    msg: {
+        marginBottom: "20px",
+    }
 }));
 
 export function Login(props) {
@@ -52,7 +55,8 @@ export function Login(props) {
             <Typography
                 variant="h5"
                 gutterBottom={true}
-            >Oops, you're not logged in!</Typography>
+                className={classes.msg}
+            >Login to access application content.</Typography>
             <GoogleLogin
                 clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
                 buttonText="Google Login"
