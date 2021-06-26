@@ -33,15 +33,16 @@ def user_loader(user_id):
 
 class Profile(Resource):
     google_user = {
-        "user_id": fields.Integer(),
+        "user_id": fields.String(),
         "name": fields.String(),
-        "email": fields.Url(),
-        "profile_pic": fields.Url(),
+        "email": fields.String(),
+        "profile_pic": fields.String(),
     }
 
     @login_required
     @marshal_with(google_user)
     def get(self):
+        print(current_user.user_id)
         return jsonify(
             {
                 "user_id": current_user.user_id,
