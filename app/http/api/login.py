@@ -71,20 +71,18 @@ class Profile(Resource):
             or "email" not in identity
             or "picture" not in identity
         ):
-            return "Unexcpected authorization response", HTTPStatus.FORBIDDEN
+            return "Unexpected authorization response", HTTPStatus.FORBIDDEN
 
-        # This just adds a new user that hasn't been seen before and assumes it
-        # will work, but you could extend the logic to do something different
-        # (such as only allow known users, or somehow mark a user as new so
-        # your frontend can collect extra profile information).
-        user = user_manager.create(
-            User(
-                identity["sub"],
-                identity["name"],
-                identity["email"],
-                identity["picture"],
+        user = user_manager.get(identity["sub"])
+        if not user:
+            user = user_manager.create(
+                User(
+                    identity["sub"],
+                    identity["name"],
+                    identity["email"],
+                    identity["picture"],
+                )
             )
-        )
 
         # Authorize the user:
         login_user(user, remember=True)
