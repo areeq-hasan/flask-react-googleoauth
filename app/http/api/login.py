@@ -44,7 +44,7 @@ class Profile(Resource):
     def get(self):
         return jsonify(
             {
-                "user_id": current_user.id,
+                "user_id": current_user.user_id,
                 "name": current_user.name,
                 "email": current_user.email,
                 "profile_pic": current_user.profile_pic,
