@@ -7,3 +7,6 @@ class User(UserMixin):
         self.name = name
         self.email = email
         self.profile_pic = profile_pic
+
+    def get_id(self):
+        return self.user_id
