@@ -12,6 +12,7 @@ firebase-admin = "*"
 google-auth = "*"
 cachecontrol = "*"
 flask-restful = "*"
+gunicorn = "*"
 
 [dev-packages]
 pylint = "*"
