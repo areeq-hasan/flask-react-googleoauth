@@ -25,7 +25,7 @@ export function Profile(props) {
             try {
                 const r = await axios.get('/api/profile')
                 setName(r.data.name);
-                setId(r.data.google_id);
+                setId(r.data.user_id);
             } catch (e) {
                 if (e.response && e.response.status === 401) setAuthRequired(true);
             }
@@ -43,7 +43,7 @@ export function Profile(props) {
                     Click your profile picture to log out.
                 </Typography>
                 <Typography variant="body1">
-                    Google ID: {id}.
+                    User ID: {id}.
                 </Typography>
             </div>
         );
