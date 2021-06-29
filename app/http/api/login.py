@@ -13,6 +13,7 @@ from app.http.api.utils.security import csrf_protection
 from app.http.api.utils.oauth import validate_id_token
 
 from app.models.user.manager import UserManager
+from app.models.user.schema import UserSchema
 from app.models.user import User
 
 from app import app
@@ -42,12 +43,7 @@ class Profile(Resource):
     @login_required
     @marshal_with(google_user)
     def get(self):
-        return {
-            "user_id": current_user.user_id,
-            "name": current_user.name,
-            "email": current_user.email,
-            "profile_pic": current_user.profile_pic,
-        }
+        return UserSchema().dump(current_user)
 
     @marshal_with(google_user)
     @csrf_protection
